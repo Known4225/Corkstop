@@ -1,0 +1,18 @@
+Relay: https://www.amazon.com/Tolako-Arduino-Indicator-Channel-Official/dp/B00VRUAHLE/ref=asc_df_B00VRUAHLE/?tag=hyprod-20&linkCode=df0&hvadid=693438226228&hvpos=&hvnetw=g&hvrand=3186026208609728067&hvpone=&hvptwo=&hvqmt=&hvdev=c&hvdvcmdl=&hvlocint=&hvlocphy=9197833&hvtargid=pla-568715033020&psc=1&mcid=1a21c141c4953093a2a06dbe834c083a
+5v
+
+Radios:
+LoRa: https://www.adafruit.com/product/3073?gad_source=1&gclid=CjwKCAjw68K4BhAuEiwAylp3ksbylHOgSzV_u7i3hiBXfk7o_9xCv3iI6R163VsMHR-rTDn-_9nfjRoC6OgQAvD_BwE
+we need two plus antennas.
+https://www.amazon.com/Antenna-Frequency-Connector-SMA-Male-Receivers/dp/B0C1FCZM94/ref=sr_1_3?crid=3Y55SGCH1QV7&dib=eyJ2IjoiMSJ9.-uvtDvQ08pxdyKHsJNdjxrEkhGPow-QhetI-SkK_2kfvoSO_FgY6ktBujV_y5IDmawReYIAS6z7YTdVQ0mzbwDw3mpG2078rhJB0F7g5UN4SwZbmk-KEz_PkzTTkZ0-3LGih95YjgTtP_unWM9IHHWzLlU41bsyTkV3zwaCXmGU7xgWdwX31npjNdXChNj9v96QlUsz5O2vnIdN9eS76SxIYuQ5wIn_Co659wKnTf25p9jxYUq96T4bXz6VkLColsfXrplcdZiPqQP7tAZzw5X_KvUH_ule2cPfw1Adgqfo.HgxrwPDznTu8nhrcNg3Sa27ePEXHfacOgKYJlsibsxI&dib_tag=se&keywords=433mhz+antenna&qid=1729223810&s=electronics&sprefix=433%2Celectronics%2C110&sr=1-3
+
+
+Control Side: 
+3.3v - avr-ble, display, arm and ignite button, buzzer, lora radio, LED indicator (radio connection), LED indicator (igniter continuity), buzzer (you should never hear this)
+power: https://www.amazon.com/TalentCell-Rechargeable-12000mAh-Multi-led-indicator/dp/B00ME3ZH7C/ref=sr_1_8?dib=eyJ2IjoiMSJ9.9YMXKCfqARjl2rS66-nclCz0nxu1iEfbH2MDcHdLonj3E1GiKPe-pCQ9bbaaBe9R3Sxqbt6v7tlsiT29ZJ0Sf0gSkdhe8jFI8FhLenl48zSf0twehAgM3_r8LxrfwWBlBOAif77nxZZ4c28SLhCUFsav65yFtPlMjDsCLyS4YJuLajpjgwT_v1i2PozhVOXcn2kwn4rQmT7ijZpRxQ14eoCtE3u3hgYBT3FJkLbn6u766SE3vxmkgmOk9AR-HaxT2TuQfcVWqJIQpfxEstsNaEP5FRD-IjalL2x0GSF6ifs.YehrmO62ruumGN731WrVomxp1c-9OuGfTwMw2V8miOk&dib_tag=se&keywords=5v+lipo+battery&qid=1729224314&sr=8-8
+buttons: https://www.amazon.com/EG-STARTS-Illuminated-Buttons-Raspberry/dp/B01N11BDX9/ref=sr_1_4?crid=UAGF0DQQ5PGC&dib=eyJ2IjoiMSJ9.3NbXviUzimoZ_DZnDfR5TFzYjD6xhFTmtlpOzF-fWdSggQMbJCQ9n1Ve7hwD6_81X7KG83cRlF1sY576F0LsVQI6ooJYxkyjiG6nSBHzrM7KkLvdbfrfB9f4MoXw1OtNYz38U0xP3AHHKKeH4C88RkvsAGJO57FggQTffuFqSMO9EGFI-QzaglvU40uTb4CXwnB_t3Knd2lc-NPfe2ADxs9TFjS5NrOInQTm60oc-rs.r1VRynqcZrLecc_ZWM090Bl0JhEPW55vWZ4F0NOODj4&dib_tag=se&keywords=arcade+button&qid=1729225527&sprefix=arcade+button%2Caps%2C117&sr=8-4
+DC buzzer: https://www.amazon.com/Electronic-Continuous-Computers-Automotive-Equipment/dp/B08KW6HB1P/ref=asc_df_B08KW6HB1P/?tag=hyprod-20&linkCode=df0&hvadid=692875362841&hvpos=&hvnetw=g&hvrand=826615389796780754&hvpone=&hvptwo=&hvqmt=&hvdev=c&hvdvcmdl=&hvlocint=&hvlocphy=9197833&hvtargid=pla-2281435177858&psc=1&mcid=81de7b79e2f23bce8376c8e9fcca8077&hvocijid=826615389796780754-B08KW6HB1P-&hvexpln=73
+
+Receiver Side:
+5v - [microcontroller (5v)], LED indicator (igniter continuity)
+power: UFC battery
