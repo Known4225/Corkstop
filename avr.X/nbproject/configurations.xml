@@ -7,6 +7,7 @@
       <itemPath>lora.h</itemPath>
       <itemPath>spi.h</itemPath>
       <itemPath>ecode.h</itemPath>
+      <itemPath>uart.h</itemPath>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"
                    displayName="Important Files"
@@ -23,6 +24,7 @@
       <itemPath>lora.c</itemPath>
       <itemPath>main.c</itemPath>
       <itemPath>spi.c</itemPath>
+      <itemPath>uart.c</itemPath>
     </logicalFolder>
   </logicalFolder>
   <sourceRootList>
@@ -152,6 +154,9 @@
         <property key="program-the-device-with-default-config-words" value="false"/>
         <property key="remove-unused-sections" value="true"/>
       </HI-TECH-LINK>
+      <Tool>
+        <property key="debugoptions.useswbreakpoints" value="true"/>
+      </Tool>
       <XC8-CO>
         <property key="coverage-enable" value=""/>
         <property key="stack-guidance" value="false"/>

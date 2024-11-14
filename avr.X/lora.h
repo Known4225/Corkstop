@@ -101,6 +101,7 @@
 #define FREQUENCY				433E6
 
 #define RST_PIN     PIN2_bm
+#define INT_PIN     PIN3_bm
 
 #define SS		(1<<PB2)
 #define DDR_SS		DDRB
@@ -141,7 +142,7 @@ void lora_standby();
 void lora_rx_continuous();
 
 // Main library event function. This should run in non-blocked main loop
-void lora_event();
+void lora_receive();
 
 //Register callback function for receiving data
 void register_lora_rx_event_callback(void (*callback)(uint8_t * buf, uint8_t len, uint8_t status));
@@ -173,6 +174,6 @@ void lora_tx_power(uint8_t db);
 void lora_set_freq(uint32_t freq);
 
 //Transmit data from buf
-void lora_putd(uint8_t * buf, uint8_t len);
+void lora_send(uint8_t *buf, uint8_t len);
 
-#endif
+#endif /* __LORA_H_ */

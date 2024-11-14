@@ -3,26 +3,31 @@
 #include "lora.h"
 #include "spi.h"
 
-//Buffer for receiving data
+// Buffer for receiving data
 uint8_t buf[MAX_PKT_LENGTH];
 
-//IRQ pin flag. Note volatile specifier, because this variable is used in interrupt
+// IRQ pin flag. Note volatile specifier, because this variable is used in interrupt
 volatile uint8_t rx_done_flag;
 
-//Callback function pointer
+// Callback function pointer
 static void (*lora_rx_event_callback)(uint8_t * buf, uint8_t len, uint8_t status);
 
-//#define INTERRUPT_vect		INT0_vect
-
-//void lora_interrupt_init() {
-//	//Set INT0 to rising edge
-//	EICRA |= (1<<ISC01)|(1<<ISC00);
-//	//Allow INT0 to trigger
-//	EIMSK |= (1<<INT0);
-//}
+ISR(PORTA_PORT_vect) {
+    if(PORTA.INTFLAGS & PIN3_bm) {
+        /* LORA INTERRUPT */
+        rx_done_flag = 1;
+        PORTA.INTFLAGS = PIN3_bm;
+    }
+}
 
 ECODE lora_init() {
 	spi_init();
+    /* lora reset pin */
+    PORTA.DIRSET |= RST_PIN;
+    /* lora interrupt pin setup */
+    PORTA.DIRSET &= ~INT_PIN; // interrupt pin
+    /* enable interrupt on rising edge */
+    PORTA.PIN3CTRL |= PORT_ISC_RISING_gc;
     
     PORTA.OUT |= RST_PIN;
 	_delay_ms(50);
@@ -32,8 +37,6 @@ ECODE lora_init() {
 	_delay_ms(10);
 
 	spi_disable();
-
-	// lora_interrupt_init();
 
 	uint8_t version;
     lora_read_register(REG_VERSION, &version);
@@ -228,7 +231,7 @@ void lora_rx_continuous() {
 	lora_write_register(REG_OP_MODE, MODE_LONG_RANGE_MODE | MODE_RX_CONTINUOUS);
 }
 
-void lora_putd(uint8_t * buf, uint8_t len) {
+void lora_send(uint8_t *buf, uint8_t len) {
 	// Datasheet page 38
 	// 1. Mode request STAND-BY
 	// 2. TX init
@@ -264,7 +267,7 @@ void lora_putd(uint8_t * buf, uint8_t len) {
 	lora_rx_continuous();
 }
 
-void lora_event() {
+void lora_receive() {
 	// Datasheet page 39
 	// 1. Mode request STAND-BY
 	// 2. RX init
@@ -305,7 +308,3 @@ void lora_event() {
 		rx_done_flag = 0;
 	}
 }
-
-//ISR(INTERRUPT_vect) {
-//	rx_done_flag = 1;
-//}
