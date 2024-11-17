@@ -18,8 +18,8 @@ build/default/debug/main.o.d build/default/debug/main.o: main.c \
  c:\program\ files\microchip\xc8\v2.50\avr\avr\include\math.h \
  c:\program\ files\microchip\xc8\v2.50\avr\avr\include\avr\interrupt.h \
  c:\program\ files\microchip\xc8\v2.50\avr\avr\include\avr\wdt.h \
- c:\program\ files\microchip\xc8\v2.50\avr\avr\include\string.h lora.h \
- ecode.h uart.h
+ c:\program\ files\microchip\xc8\v2.50\avr\avr\include\string.h uart.h \
+ ecode.h tca.h lora.h
 
 c:\program\ files\microchip\xc8\v2.50\avr\avr\include\avr\io.h:
 
@@ -61,8 +61,10 @@ c:\program\ files\microchip\xc8\v2.50\avr\avr\include\avr\wdt.h:
 
 c:\program\ files\microchip\xc8\v2.50\avr\avr\include\string.h:
 
-lora.h:
+uart.h:
 
 ecode.h:
 
-uart.h:
+tca.h:
+
+lora.h:

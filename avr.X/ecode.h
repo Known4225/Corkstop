@@ -1,6 +1,8 @@
 #ifndef __ECODE_H_
 #define __ECODE_H_
 
+#include <stdint.h>
+
 typedef uint8_t ECODE;
 
 #define ECODE_OK        0

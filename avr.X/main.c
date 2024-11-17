@@ -7,14 +7,20 @@
 
 #include <string.h>
 
-#include "lora.h"
 #include "uart.h"
+#include "tca.h"
+#include "lora.h"
 
 void parse_lora(uint8_t * buf, uint8_t len, uint8_t status);
 
 int main() {
     uart_init(9600);
-    if(!lora_init()) {
+    if (tca_init()) {
+        uart_tx("RTC could not initialise\r\n");
+        while (1);
+    }
+    uart_tx("RTC successfully initialised\r\n");
+    if(lora_init()) {
         uart_tx("lora could not initialise\r\n");
 		while(1); // If init returns 0, error occur. Check connections and try again.
 	}
@@ -35,4 +41,12 @@ void parse_lora(uint8_t *buf, uint8_t len, uint8_t status) {
 	uart_tx("buf: ");
     uart_tx((const char *) buf);
     uart_tx("\r\n");
+}
+
+/* TCA ISR - every second */
+ISR(TCA0_OVF_vect) {
+    lora_send((uint8_t *) "cork", 4);
+    uart_tx("rtc tick\r\n");
+    /* The interrupt flag has to be cleared manually */
+    TCA0.SINGLE.INTFLAGS &= TCA_SINGLE_OVF_bm;
 }
