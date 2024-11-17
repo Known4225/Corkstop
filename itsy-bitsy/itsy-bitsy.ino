@@ -85,8 +85,9 @@ void loop() {
         uint8_t len = sizeof(buf);
 
         if (lora.recv(buf, &len)) {
-            Serial.print("Received: ");
-            Serial.println((char*) buf);
+            Serial.print("Received: \"");
+            Serial.print((char*) buf);
+            Serial.print("\"\r\n");
             Serial.print("RSSI: ");
             Serial.println(lora.lastRssi(), DEC);
             if (len == 5 && strcmp(buf, "cork") == 0) {
