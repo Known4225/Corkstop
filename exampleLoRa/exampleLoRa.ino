@@ -28,7 +28,7 @@ https://learn.adafruit.com/introducting-itsy-bitsy-32u4/pinouts
 #define RF95_FREQ 433.0
 
 // Singleton instance of the radio driver
-RH_RF95 rf95(RFM95_CS, RFM95_INT);
+RH_RF95 lora(RFM95_CS, RFM95_INT);
 
 // Blinky on receive
 #define LED 11
@@ -50,26 +50,26 @@ void setup() {
     digitalWrite(RFM95_RST, HIGH);
     delay(10);
 
-    while (!rf95.init()) {
+    while (!lora.init()) {
         Serial.println("LoRa radio init failed");
         while (1);
     }
     Serial.println("LoRa radio init OK!");
 
     // Defaults after init are 433.0MHz, modulation GFSK_Rb250Fd250, +13dbM
-    if (!rf95.setFrequency(RF95_FREQ)) {
+    if (!lora.setFrequency(RF95_FREQ)) {
         Serial.println("setFrequency failed");
         while (1);
     }
     Serial.print("Set Freq to: "); Serial.println(RF95_FREQ);
-    rf95.setPayloadCRC(false);
+    lora.setPayloadCRC(false);
 
     // Defaults after init are 433.0MHz, 13dBm, Bw = 125 kHz, Cr = 4/5, Sf = 128chips/symbol, CRC on
 
     // The default transmitter power is 13dBm, using PA_BOOST.
     // If you are using RFM95/96/97/98 modules which uses the PA_BOOST transmitter pin, then 
     // you can set transmitter powers from 5 to 23 dBm:
-    rf95.setTxPower(20, false);
+    lora.setTxPower(20, false);
 }
 
 uint8_t ledToggle = LOW;
@@ -79,24 +79,23 @@ void loop() {
     if (millis() - ledLastOn > 500) {
         digitalWrite(LED, LOW);
     }
-    if (rf95.available()) {
+    if (lora.available()) {
         // Should be a message for us now
         uint8_t buf[RH_RF95_MAX_MESSAGE_LEN];
         uint8_t len = sizeof(buf);
 
-        if (rf95.recv(buf, &len)) {
+        if (lora.recv(buf, &len)) {
             ledLastOn = millis();
             digitalWrite(LED, HIGH);
-            // RH_RF95::printBuffer("Received: ", buf, len);
             Serial.print("Received: ");
             Serial.println((char*) buf);
             Serial.print("RSSI: ");
-            Serial.println(rf95.lastRssi(), DEC);
+            Serial.println(lora.lastRssi(), DEC);
             
             // Send a reply
-            uint8_t message[] = {'s', 't', 'o', 'p'};
-            rf95.send(message, sizeof(message));
-            rf95.waitPacketSent();
+            uint8_t message[] = {'s', 't', 'o', 'p', '\0'};
+            lora.send(message, sizeof(message));
+            lora.waitPacketSent();
             Serial.println("Sent reply \"stop\"\r\n");
         } else {
             Serial.println("Receive failed");

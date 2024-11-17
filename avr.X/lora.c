@@ -297,9 +297,15 @@ void lora_receive() {
             uint8_t rx_current;
             lora_read_register(REG_FIFO_RX_CURRENT_ADDR, &rx_current);
 			lora_write_register(REG_FIFO_ADDR_PTR, rx_current);
+            
+            // Read four bytes of header (discard)
+            uint8_t dummy;
+            for (uint8_t i = 0; i < 4; i++) {
+                lora_read_register(REG_FIFO, &dummy);
+            }
 
 			// Read FIFO to buffer
-			for (uint8_t i = 0; i < len; i++) {
+			for (uint8_t i = 0; i < len - 4; i++) {
                 lora_read_register(REG_FIFO, &buf[i]);
             }
 			// Run callback with data
