@@ -19,6 +19,8 @@ https://cdn-shop.adafruit.com/product-files/3076/sx1231.pdf
 void parse_lora(uint8_t * buf, uint8_t len, uint8_t status);
 
 int main() {
+    /* LED init */
+    PORTC.DIR |= PIN0_bm;
     uart_init(9600);
     if (tca_init()) {
         uart_tx("RTC could not initialise\r\n");
@@ -54,11 +56,20 @@ void parse_lora(uint8_t *buf, uint8_t len, uint8_t status) {
     uart_tx("\r\n");
 }
 
+uint8_t ledToggle = 0;
+
 /* TCA ISR - every second */
 ISR(TCA0_OVF_vect) {
     uint8_t message[] = {0xFF, 0xFF, 0xFF, 0xFF, 'c', 'o', 'r', 'k', '\0'};
     lora_send(message, sizeof(message));
     uart_tx("rtc tick\r\n");
+    if (ledToggle) {
+        ledToggle = 0;
+        PORTC.OUT &= ~PIN0_bm;
+    } else {
+        ledToggle = 1;
+        PORTC.OUT |= PIN0_bm;
+    }
     /* The interrupt flag has to be cleared manually */
     TCA0.SINGLE.INTFLAGS &= TCA_SINGLE_OVF_bm;
 }
