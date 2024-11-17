@@ -11,7 +11,8 @@ ECODE spi_init() {
     | SPI_ENABLE_bm /* Enable module */
     | SPI_MASTER_bm /* SPI module in Host mode */
     | SPI_PRESC_DIV4_gc; /* System Clock divided by 4 (0.8333 MHz) */
-    SPI0.CTRLB |= SPI_MODE_3_gc; /* Data Mode 3 */
+    SPI0.CTRLB |= SPI_MODE_0_gc; /* Data Mode 3 */
+    // SPCR = 0b01010000;
     return ECODE_OK;
 }
 

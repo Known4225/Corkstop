@@ -30,6 +30,12 @@ int main() {
 		while(1); // If init returns 0, error occur. Check connections and try again.
 	}
     uart_tx("lora successfully initialised\r\n");
+    /* funny spi */
+//    for (int i = 0; i < 128; i++) {
+//        spi_enable();
+//        spi_tx(i);
+//        spi_disable();
+//    }
     register_lora_rx_event_callback(parse_lora);
     sei();
 	while(1) {
@@ -50,7 +56,7 @@ void parse_lora(uint8_t *buf, uint8_t len, uint8_t status) {
 
 /* TCA ISR - every second */
 ISR(TCA0_OVF_vect) {
-    lora_send((uint8_t *) "cork", 4);
+    lora_send((uint8_t *) "cork\r\n", 4);
     uart_tx("rtc tick\r\n");
     /* The interrupt flag has to be cleared manually */
     TCA0.SINGLE.INTFLAGS &= TCA_SINGLE_OVF_bm;

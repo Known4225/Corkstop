@@ -8,6 +8,15 @@
 // workspace link: https://adafruit.github.io/arduino-board-index/package_adafruit_index.json
 // also uses RadioHead library, and the code is modified from: https://github.com/adafruit/RadioHead/blob/master/examples/feather/Feather9x_RX/Feather9x_RX.ino
 
+/*
+https://cdn-learn.adafruit.com/downloads/pdf/adafruit-rfm69hcw-and-rfm96-rfm95-rfm98-lora-packet-padio-breakouts.pdf
+https://cdn-shop.adafruit.com/product-files/3076/sx1231.pdf
+*/
+
+/*
+https://learn.adafruit.com/introducting-itsy-bitsy-32u4/pinouts
+*/
+
 #include <SPI.h>
 #include <RH_RF95.h>
 
@@ -21,8 +30,8 @@
 // Singleton instance of the radio driver
 RH_RF95 rf95(RFM95_CS, RFM95_INT);
 
-// Blinky on receipt
-#define LED 13
+// Blinky on receive
+#define LED 11
 
 void setup() {
     pinMode(LED, OUTPUT);     
@@ -62,14 +71,23 @@ void setup() {
     rf95.setTxPower(20, false);
 }
 
+uint8_t ledToggle = LOW;
+
 void loop() {
     if (rf95.available()) {
-        // Should be a message for us now   
+        // Should be a message for us now
+        Serial.print("receive\r\n");
+        if (ledToggle = HIGH) {
+            ledToggle = LOW;
+            digitalWrite(LED, LOW);
+        } else {
+            ledToggle = HIGH;
+            digitalWrite(LED, HIGH);
+        }
         uint8_t buf[RH_RF95_MAX_MESSAGE_LEN];
         uint8_t len = sizeof(buf);
 
         if (rf95.recv(buf, &len)) {
-            digitalWrite(LED, HIGH);
             RH_RF95::printBuffer("Received: ", buf, len);
             Serial.print("Got: ");
             Serial.println((char*) buf);
@@ -77,11 +95,10 @@ void loop() {
             Serial.println(rf95.lastRssi(), DEC);
             
             // Send a reply
-            uint8_t data[] = "stop";
+            uint8_t data[] = "stop\r\n";
             rf95.send(data, sizeof(data));
             rf95.waitPacketSent();
             Serial.println("Sent reply \"stop\"");
-            digitalWrite(LED, LOW);
         } else {
             Serial.println("Receive failed");
         }
