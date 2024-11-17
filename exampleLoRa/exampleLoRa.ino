@@ -22,7 +22,7 @@ https://learn.adafruit.com/introducting-itsy-bitsy-32u4/pinouts
 
 #define RFM95_CS  18
 #define RFM95_RST 19
-#define RFM95_INT 2
+#define RFM95_INT 3
 
 // Change to 433.0 or other frequency, must match RX's freq!
 #define RF95_FREQ 433.0
@@ -62,8 +62,9 @@ void setup() {
         while (1);
     }
     Serial.print("Set Freq to: "); Serial.println(RF95_FREQ);
+    rf95.setPayloadCRC(false);
 
-    // Defaults after init are 434.0MHz, 13dBm, Bw = 125 kHz, Cr = 4/5, Sf = 128chips/symbol, CRC on
+    // Defaults after init are 433.0MHz, 13dBm, Bw = 125 kHz, Cr = 4/5, Sf = 128chips/symbol, CRC on
 
     // The default transmitter power is 13dBm, using PA_BOOST.
     // If you are using RFM95/96/97/98 modules which uses the PA_BOOST transmitter pin, then 
@@ -72,33 +73,31 @@ void setup() {
 }
 
 uint8_t ledToggle = LOW;
+uint32_t ledLastOn;
 
 void loop() {
+    if (millis() - ledLastOn > 500) {
+        digitalWrite(LED, LOW);
+    }
     if (rf95.available()) {
         // Should be a message for us now
-        Serial.print("receive\r\n");
-        if (ledToggle = HIGH) {
-            ledToggle = LOW;
-            digitalWrite(LED, LOW);
-        } else {
-            ledToggle = HIGH;
-            digitalWrite(LED, HIGH);
-        }
         uint8_t buf[RH_RF95_MAX_MESSAGE_LEN];
         uint8_t len = sizeof(buf);
 
         if (rf95.recv(buf, &len)) {
-            RH_RF95::printBuffer("Received: ", buf, len);
-            Serial.print("Got: ");
+            ledLastOn = millis();
+            digitalWrite(LED, HIGH);
+            // RH_RF95::printBuffer("Received: ", buf, len);
+            Serial.print("Received: ");
             Serial.println((char*) buf);
             Serial.print("RSSI: ");
             Serial.println(rf95.lastRssi(), DEC);
             
             // Send a reply
-            uint8_t data[] = "stop\r\n";
-            rf95.send(data, sizeof(data));
+            uint8_t message[] = {'s', 't', 'o', 'p'};
+            rf95.send(message, sizeof(message));
             rf95.waitPacketSent();
-            Serial.println("Sent reply \"stop\"");
+            Serial.println("Sent reply \"stop\"\r\n");
         } else {
             Serial.println("Receive failed");
         }

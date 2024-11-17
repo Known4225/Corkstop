@@ -56,7 +56,8 @@ void parse_lora(uint8_t *buf, uint8_t len, uint8_t status) {
 
 /* TCA ISR - every second */
 ISR(TCA0_OVF_vect) {
-    lora_send((uint8_t *) "cork\r\n", 4);
+    uint8_t message[] = {0xFF, 0xFF, 0xFF, 0xFF, 'c', 'o', 'r', 'k', '\0'};
+    lora_send(message, sizeof(message));
     uart_tx("rtc tick\r\n");
     /* The interrupt flag has to be cleared manually */
     TCA0.SINGLE.INTFLAGS &= TCA_SINGLE_OVF_bm;
