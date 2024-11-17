@@ -19,6 +19,7 @@ https://cdn-shop.adafruit.com/product-files/3076/sx1231.pdf
 uint8_t ledToggle = 0;
 uint32_t millis = 0;
 uint32_t ledMillis = 0;
+uint8_t receivedGood = 0;
 
 void parse_lora(uint8_t * buf, uint8_t len, uint8_t status);
 
@@ -40,8 +41,8 @@ int main() {
     sei();
 	while(1) {
 		lora_receive();
-        if (millis - ledMillis > 500) {
-            PORTC.OUT &= ~PIN0_bm;
+        if (millis - ledMillis > 500 && receivedGood) {
+            PORTC.OUT |= PIN0_bm;
         }
         _delay_ms(1);
         millis++;
@@ -54,17 +55,21 @@ void parse_lora(uint8_t *buf, uint8_t len, uint8_t status) {
 		// ...process error
 		return;
 	}
-	uart_tx("buf: ");
+	uart_tx("Received: \"");
     uart_tx((const char *) buf);
-    uart_tx("\r\n");
+    uart_tx("\"\r\n");
+    if (strcmp(buf, "stop" == 0)) {
+        receivedGood = 1;
+    }
 }
 
 /* TCA ISR - every second */
 ISR(TCA0_OVF_vect) {
     uint8_t message[] = {0xFF, 0xFF, 0xFF, 0xFF, 'c', 'o', 'r', 'k', '\0'};
     lora_send(message, sizeof(message));
-    uart_tx("rtc tick\r\n");
-    PORTC.OUT |= PIN0_bm;
+    uart_tx("sent \"cork\"\r\n");
+    receivedGood = 0;
+    PORTC.OUT &= ~PIN0_bm;
     ledMillis = millis;
     /* The interrupt flag has to be cleared manually */
     TCA0.SINGLE.INTFLAGS &= TCA_SINGLE_OVF_bm;

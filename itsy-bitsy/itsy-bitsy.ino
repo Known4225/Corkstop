@@ -85,18 +85,20 @@ void loop() {
         uint8_t len = sizeof(buf);
 
         if (lora.recv(buf, &len)) {
-            ledLastOn = millis();
-            digitalWrite(LED, HIGH);
             Serial.print("Received: ");
             Serial.println((char*) buf);
             Serial.print("RSSI: ");
             Serial.println(lora.lastRssi(), DEC);
-            
-            // Send a reply
-            uint8_t message[] = {'s', 't', 'o', 'p', '\0'};
-            lora.send(message, sizeof(message));
-            lora.waitPacketSent();
-            Serial.println("Sent reply \"stop\"\r\n");
+            if (len == 5 && strcmp(buf, "cork") == 0) {
+                ledLastOn = millis();
+                digitalWrite(LED, HIGH);
+                
+                // Send a reply
+                uint8_t message[] = {'s', 't', 'o', 'p', '\0'};
+                lora.send(message, sizeof(message));
+                lora.waitPacketSent();
+                Serial.println("Sent reply \"stop\"\r\n");
+            }
         } else {
             Serial.println("Receive failed");
         }
