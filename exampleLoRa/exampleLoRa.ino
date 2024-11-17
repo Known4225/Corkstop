@@ -5,6 +5,8 @@
 // reliability, so you should only use RH_RF95 if you do not need the higher
 // level messaging abilities.
 // It is designed to work with the other example Arduino9x_TX
+// workspace link: https://adafruit.github.io/arduino-board-index/package_adafruit_index.json
+// also uses RadioHead library, and the code is modified from: https://github.com/adafruit/RadioHead/blob/master/examples/feather/Feather9x_RX/Feather9x_RX.ino
 
 #include <SPI.h>
 #include <RH_RF95.h>

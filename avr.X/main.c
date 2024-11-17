@@ -1,3 +1,8 @@
+/*
+https://cdn-learn.adafruit.com/downloads/pdf/adafruit-rfm69hcw-and-rfm96-rfm95-rfm98-lora-packet-padio-breakouts.pdf
+https://cdn-shop.adafruit.com/product-files/3076/sx1231.pdf
+*/
+
 #define F_CPU 3333333
 
 #include <avr/io.h>
