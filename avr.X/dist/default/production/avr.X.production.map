@@ -67,6 +67,8 @@ Discarded input sections
  .text          0x0000000000000000        0x0 build/default/production/main.o
  .data          0x0000000000000000        0x0 build/default/production/main.o
  .bss           0x0000000000000000        0x0 build/default/production/main.o
+ .bss.ledToggle
+                0x0000000000000000        0x1 build/default/production/main.o
  .text          0x0000000000000000        0x0 build/default/production/spi.o
  .data          0x0000000000000000        0x0 build/default/production/spi.o
  .bss           0x0000000000000000        0x0 build/default/production/spi.o
@@ -705,32 +707,32 @@ END GROUP
 .debug_pubnames
  *(.debug_pubnames)
 
-.debug_info     0x0000000000000000     0x5e7d
+.debug_info     0x0000000000000000     0x5f54
  *(.debug_info .gnu.linkonce.wi.*)
  .debug_info    0x0000000000000000     0x25a7 D:/Program Files/Microchip/MPLABX/v6.20/packs/Microchip/ATmega_DFP/3.1.264/xc8/avr/lib/avrxmega3/crtatmega3208.o
  .debug_info    0x00000000000025a7     0x119c build/default/production/lora.o
- .debug_info    0x0000000000003743      0xd0b build/default/production/main.o
- .debug_info    0x000000000000444e      0x6db build/default/production/spi.o
- .debug_info    0x0000000000004b29      0x855 build/default/production/uart.o
- .debug_info    0x000000000000537e      0xaff build/default/production/tca.o
+ .debug_info    0x0000000000003743      0xde2 build/default/production/main.o
+ .debug_info    0x0000000000004525      0x6db build/default/production/spi.o
+ .debug_info    0x0000000000004c00      0x855 build/default/production/uart.o
+ .debug_info    0x0000000000005455      0xaff build/default/production/tca.o
 
-.debug_abbrev   0x0000000000000000     0x2bd6
+.debug_abbrev   0x0000000000000000     0x2c3e
  *(.debug_abbrev)
  .debug_abbrev  0x0000000000000000     0x23a4 D:/Program Files/Microchip/MPLABX/v6.20/packs/Microchip/ATmega_DFP/3.1.264/xc8/avr/lib/avrxmega3/crtatmega3208.o
  .debug_abbrev  0x00000000000023a4      0x2bc build/default/production/lora.o
- .debug_abbrev  0x0000000000002660      0x189 build/default/production/main.o
- .debug_abbrev  0x00000000000027e9      0x16a build/default/production/spi.o
- .debug_abbrev  0x0000000000002953      0x18a build/default/production/uart.o
- .debug_abbrev  0x0000000000002add       0xf9 build/default/production/tca.o
+ .debug_abbrev  0x0000000000002660      0x1f1 build/default/production/main.o
+ .debug_abbrev  0x0000000000002851      0x16a build/default/production/spi.o
+ .debug_abbrev  0x00000000000029bb      0x18a build/default/production/uart.o
+ .debug_abbrev  0x0000000000002b45       0xf9 build/default/production/tca.o
 
-.debug_line     0x0000000000000000      0xd08
+.debug_line     0x0000000000000000      0xd62
  *(.debug_line .debug_line.* .debug_line_end)
  .debug_line    0x0000000000000000      0x16f D:/Program Files/Microchip/MPLABX/v6.20/packs/Microchip/ATmega_DFP/3.1.264/xc8/avr/lib/avrxmega3/crtatmega3208.o
  .debug_line    0x000000000000016f      0x58d build/default/production/lora.o
- .debug_line    0x00000000000006fc      0x1c5 build/default/production/main.o
- .debug_line    0x00000000000008c1      0x1be build/default/production/spi.o
- .debug_line    0x0000000000000a7f      0x175 build/default/production/uart.o
- .debug_line    0x0000000000000bf4      0x114 build/default/production/tca.o
+ .debug_line    0x00000000000006fc      0x21f build/default/production/main.o
+ .debug_line    0x000000000000091b      0x1be build/default/production/spi.o
+ .debug_line    0x0000000000000ad9      0x175 build/default/production/uart.o
+ .debug_line    0x0000000000000c4e      0x114 build/default/production/tca.o
 
 .debug_frame    0x0000000000000000      0x408
  *(.debug_frame)
@@ -749,12 +751,12 @@ END GROUP
  .debug_str     0x00000000000010c8        0xb build/default/production/uart.o
  .debug_str     0x00000000000010d3       0x52 build/default/production/tca.o
 
-.debug_loc      0x0000000000000000      0x791
+.debug_loc      0x0000000000000000      0x7d7
  *(.debug_loc)
  .debug_loc     0x0000000000000000      0x587 build/default/production/lora.o
- .debug_loc     0x0000000000000587       0x78 build/default/production/main.o
- .debug_loc     0x00000000000005ff      0x101 build/default/production/spi.o
- .debug_loc     0x0000000000000700       0x91 build/default/production/uart.o
+ .debug_loc     0x0000000000000587       0xbe build/default/production/main.o
+ .debug_loc     0x0000000000000645      0x101 build/default/production/spi.o
+ .debug_loc     0x0000000000000746       0x91 build/default/production/uart.o
 
 .debug_macinfo
  *(.debug_macinfo)
@@ -794,24 +796,28 @@ LOAD data_init
                 0x0000000000000000       0x40 D:/Program Files/Microchip/MPLABX/v6.20/packs/Microchip/ATmega_DFP/3.1.264/xc8/avr/lib/avrxmega3/crtatmega3208.o
 
 .bss.lora_rx_event_callback
-                0x00000000008030ff        0x2
+                0x0000000000803107        0x2
  .bss.lora_rx_event_callback
-                0x00000000008030ff        0x2 build/default/production/lora.o
+                0x0000000000803107        0x2 build/default/production/lora.o
 
 .bss.rx_done_flag
-                0x0000000000803101        0x1
+                0x0000000000803109        0x1
  .bss.rx_done_flag
-                0x0000000000803101        0x1 build/default/production/lora.o
-                0x0000000000803101                rx_done_flag
+                0x0000000000803109        0x1 build/default/production/lora.o
+                0x0000000000803109                rx_done_flag
 
 .bss.buf        0x0000000000803000       0xff
  .bss.buf       0x0000000000803000       0xff build/default/production/lora.o
                 0x0000000000803000                buf
 
-.bss.ledToggle  0x0000000000803102        0x1
- .bss.ledToggle
-                0x0000000000803102        0x1 build/default/production/main.o
-                0x0000000000803102                ledToggle
+.bss.ledMillis  0x00000000008030ff        0x4
+ .bss.ledMillis
+                0x00000000008030ff        0x4 build/default/production/main.o
+                0x00000000008030ff                ledMillis
+
+.bss.millis     0x0000000000803103        0x4
+ .bss.millis    0x0000000000803103        0x4 build/default/production/main.o
+                0x0000000000803103                millis
 
 .text.lora_init
                 0x00000000000000ea       0xf8
@@ -839,320 +845,320 @@ LOAD data_init
  .text          0x000000000000046e       0xce d:/program files/microchip/xc8/v2.50/avr/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avrxmega3\libm.a(addsf3x.o)
                 0x000000000000046e                __addsf3x
 
+.text.main      0x000000000000053c       0xc6
+ .text.main     0x000000000000053c       0xc6 build/default/production/main.o
+                0x000000000000053c                main
+
 .text.__vector_7
-                0x000000000000053c       0xb2
+                0x0000000000000602       0xb4
  .text.__vector_7
-                0x000000000000053c       0xb2 build/default/production/main.o
-                0x000000000000053c                __vector_7
+                0x0000000000000602       0xb4 build/default/production/main.o
+                0x0000000000000602                __vector_7
 
 .text.lora_set_freq
-                0x00000000000005ee       0xaa
+                0x00000000000006b6       0xaa
  .text.lora_set_freq
-                0x00000000000005ee       0xaa build/default/production/lora.o
-                0x00000000000005ee                lora_set_freq
+                0x00000000000006b6       0xaa build/default/production/lora.o
+                0x00000000000006b6                lora_set_freq
 
 .text.lora_send
-                0x0000000000000698       0xa6
+                0x0000000000000760       0xa6
  .text.lora_send
-                0x0000000000000698       0xa6 build/default/production/lora.o
-                0x0000000000000698                lora_send
+                0x0000000000000760       0xa6 build/default/production/lora.o
+                0x0000000000000760                lora_send
 
 .text.libgcc.div
-                0x000000000000073e       0xa2
+                0x0000000000000806       0xa2
  .text.libgcc.div
-                0x000000000000073e       0xa2 d:/program files/microchip/xc8/v2.50/avr/bin/../lib/gcc/avr/5.4.0/avrxmega3\libgcc.a(_udivmod64.o)
-                0x000000000000073e                __udivmod64
+                0x0000000000000806       0xa2 d:/program files/microchip/xc8/v2.50/avr/bin/../lib/gcc/avr/5.4.0/avrxmega3\libgcc.a(_udivmod64.o)
+                0x0000000000000806                __udivmod64
 
-.rodata         0x00000000008047e0       0x93 load address 0x00000000000007e0
- .rodata        0x00000000008047e0       0x93 build/default/production/main.o
+.rodata         0x00000000008048a8       0x93 load address 0x00000000000008a8
+ .rodata        0x00000000008048a8       0x93 build/default/production/main.o
 
-.text           0x0000000000000874       0x7a
- .text          0x0000000000000874       0x7a d:/program files/microchip/xc8/v2.50/avr/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avrxmega3\libm.a(floatsisf.o)
-                0x0000000000000874                __floatunsisf
-                0x0000000000000878                __floatsisf
+.text           0x000000000000093c       0x7a
+ .text          0x000000000000093c       0x7a d:/program files/microchip/xc8/v2.50/avr/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avrxmega3\libm.a(floatsisf.o)
+                0x000000000000093c                __floatunsisf
+                0x0000000000000940                __floatsisf
 
 .text.uart_init
-                0x00000000000008ee       0x5e
+                0x00000000000009b6       0x5e
  .text.uart_init
-                0x00000000000008ee       0x5e build/default/production/uart.o
-                0x00000000000008ee                uart_init
+                0x00000000000009b6       0x5e build/default/production/uart.o
+                0x00000000000009b6                uart_init
 
-.text           0x000000000000094c       0x5e
- .text          0x000000000000094c       0x5e d:/program files/microchip/xc8/v2.50/avr/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avrxmega3\libm.a(fixunssfsi.o)
-                0x000000000000094c                __fixunssfsi
-
-.text.main      0x00000000000009aa       0x5a
- .text.main     0x00000000000009aa       0x5a build/default/production/main.o
-                0x00000000000009aa                main
+.text           0x0000000000000a14       0x5e
+ .text          0x0000000000000a14       0x5e d:/program files/microchip/xc8/v2.50/avr/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avrxmega3\libm.a(fixunssfsi.o)
+                0x0000000000000a14                __fixunssfsi
 
 .text.lora_tx_power
-                0x0000000000000a04       0x48
+                0x0000000000000a72       0x48
  .text.lora_tx_power
-                0x0000000000000a04       0x48 build/default/production/lora.o
-                0x0000000000000a04                lora_tx_power
+                0x0000000000000a72       0x48 build/default/production/lora.o
+                0x0000000000000a72                lora_tx_power
 
-.text           0x0000000000000a4c       0x44
- .text          0x0000000000000a4c       0x44 d:/program files/microchip/xc8/v2.50/avr/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avrxmega3\libm.a(fp_split3.o)
-                0x0000000000000a4c                __fp_split3
-                0x0000000000000a5c                __fp_splitA
+.text           0x0000000000000aba       0x44
+ .text          0x0000000000000aba       0x44 d:/program files/microchip/xc8/v2.50/avr/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avrxmega3\libm.a(fp_split3.o)
+                0x0000000000000aba                __fp_split3
+                0x0000000000000aca                __fp_splitA
 
 .text.libgcc.builtins
-                0x0000000000000a90       0x3c
+                0x0000000000000afe       0x3c
  .text.libgcc.builtins
-                0x0000000000000a90       0x3c d:/program files/microchip/xc8/v2.50/avr/bin/../lib/gcc/avr/5.4.0/avrxmega3\libgcc.a(_ashrdi3.o)
-                0x0000000000000a90                __ashrdi3
-                0x0000000000000a94                __lshrdi3
+                0x0000000000000afe       0x3c d:/program files/microchip/xc8/v2.50/avr/bin/../lib/gcc/avr/5.4.0/avrxmega3\libgcc.a(_ashrdi3.o)
+                0x0000000000000afe                __ashrdi3
+                0x0000000000000b02                __lshrdi3
 
 .text.lora_set_bandwidth
-                0x0000000000000acc       0x38
+                0x0000000000000b3a       0x38
  .text.lora_set_bandwidth
-                0x0000000000000acc       0x38 build/default/production/lora.o
-                0x0000000000000acc                lora_set_bandwidth
+                0x0000000000000b3a       0x38 build/default/production/lora.o
+                0x0000000000000b3a                lora_set_bandwidth
 
 .text.lora_set_spreading_factor
-                0x0000000000000b04       0x38
+                0x0000000000000b72       0x38
  .text.lora_set_spreading_factor
-                0x0000000000000b04       0x38 build/default/production/lora.o
-                0x0000000000000b04                lora_set_spreading_factor
+                0x0000000000000b72       0x38 build/default/production/lora.o
+                0x0000000000000b72                lora_set_spreading_factor
 
 .text.lora_set_coding_rate
-                0x0000000000000b3c       0x36
+                0x0000000000000baa       0x36
  .text.lora_set_coding_rate
-                0x0000000000000b3c       0x36 build/default/production/lora.o
-                0x0000000000000b3c                lora_set_coding_rate
+                0x0000000000000baa       0x36 build/default/production/lora.o
+                0x0000000000000baa                lora_set_coding_rate
 
 .text.lora_set_ocp
-                0x0000000000000b72       0x34
+                0x0000000000000be0       0x34
  .text.lora_set_ocp
-                0x0000000000000b72       0x34 build/default/production/lora.o
-                0x0000000000000b72                lora_set_ocp
+                0x0000000000000be0       0x34 build/default/production/lora.o
+                0x0000000000000be0                lora_set_ocp
 
-.text.spi_txrx  0x0000000000000ba6       0x32
+.text.spi_txrx  0x0000000000000c14       0x32
  .text.spi_txrx
-                0x0000000000000ba6       0x32 build/default/production/spi.o
-                0x0000000000000ba6                spi_txrx
+                0x0000000000000c14       0x32 build/default/production/spi.o
+                0x0000000000000c14                spi_txrx
 
 .text.libgcc.builtins
-                0x0000000000000bd8       0x32
+                0x0000000000000c46       0x32
  .text.libgcc.builtins
-                0x0000000000000bd8       0x32 d:/program files/microchip/xc8/v2.50/avr/bin/../lib/gcc/avr/5.4.0/avrxmega3\libgcc.a(_ashldi3.o)
-                0x0000000000000bd8                __ashldi3
+                0x0000000000000c46       0x32 d:/program files/microchip/xc8/v2.50/avr/bin/../lib/gcc/avr/5.4.0/avrxmega3\libgcc.a(_ashldi3.o)
+                0x0000000000000c46                __ashldi3
 
 .text.lora_read_register
-                0x0000000000000c0a       0x2e
+                0x0000000000000c78       0x2e
  .text.lora_read_register
-                0x0000000000000c0a       0x2e build/default/production/lora.o
-                0x0000000000000c0a                lora_read_register
+                0x0000000000000c78       0x2e build/default/production/lora.o
+                0x0000000000000c78                lora_read_register
 
-.text.uart_tx   0x0000000000000c38       0x2e
- .text.uart_tx  0x0000000000000c38       0x2e build/default/production/uart.o
-                0x0000000000000c38                uart_tx
+.text.uart_tx   0x0000000000000ca6       0x2e
+ .text.uart_tx  0x0000000000000ca6       0x2e build/default/production/uart.o
+                0x0000000000000ca6                uart_tx
 
-.text.spi_init  0x0000000000000c66       0x2c
+.text.spi_init  0x0000000000000cd4       0x2c
  .text.spi_init
-                0x0000000000000c66       0x2c build/default/production/spi.o
-                0x0000000000000c66                spi_init
+                0x0000000000000cd4       0x2c build/default/production/spi.o
+                0x0000000000000cd4                spi_init
 
 .text.lora_write_register
-                0x0000000000000c92       0x2a
+                0x0000000000000d00       0x2a
  .text.lora_write_register
-                0x0000000000000c92       0x2a build/default/production/lora.o
-                0x0000000000000c92                lora_write_register
+                0x0000000000000d00       0x2a build/default/production/lora.o
+                0x0000000000000d00                lora_write_register
 
 .text.lora_explicit_header
-                0x0000000000000cbc       0x28
+                0x0000000000000d2a       0x28
  .text.lora_explicit_header
-                0x0000000000000cbc       0x28 build/default/production/lora.o
-                0x0000000000000cbc                lora_explicit_header
+                0x0000000000000d2a       0x28 build/default/production/lora.o
+                0x0000000000000d2a                lora_explicit_header
 
 .text.libgcc.div
-                0x0000000000000ce4       0x28
+                0x0000000000000d52       0x28
  .text.libgcc.div
-                0x0000000000000ce4       0x28 d:/program files/microchip/xc8/v2.50/avr/bin/../lib/gcc/avr/5.4.0/avrxmega3\libgcc.a(_divmodhi4.o)
-                0x0000000000000ce4                _div
-                0x0000000000000ce4                __divmodhi4
+                0x0000000000000d52       0x28 d:/program files/microchip/xc8/v2.50/avr/bin/../lib/gcc/avr/5.4.0/avrxmega3\libgcc.a(_divmodhi4.o)
+                0x0000000000000d52                _div
+                0x0000000000000d52                __divmodhi4
 
 .text.libgcc.div
-                0x0000000000000d0c       0x28
+                0x0000000000000d7a       0x28
  .text.libgcc.div
-                0x0000000000000d0c       0x28 d:/program files/microchip/xc8/v2.50/avr/bin/../lib/gcc/avr/5.4.0/avrxmega3\libgcc.a(_udivmodhi4.o)
-                0x0000000000000d0c                __udivmodhi4
+                0x0000000000000d7a       0x28 d:/program files/microchip/xc8/v2.50/avr/bin/../lib/gcc/avr/5.4.0/avrxmega3\libgcc.a(_udivmodhi4.o)
+                0x0000000000000d7a                __udivmodhi4
 
 .text.parse_lora
-                0x0000000000000d34       0x26
+                0x0000000000000da2       0x26
  .text.parse_lora
-                0x0000000000000d34       0x26 build/default/production/main.o
-                0x0000000000000d34                parse_lora
+                0x0000000000000da2       0x26 build/default/production/main.o
+                0x0000000000000da2                parse_lora
 
-.text           0x0000000000000d5a       0x22
- .text          0x0000000000000d5a       0x22 d:/program files/microchip/xc8/v2.50/avr/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avrxmega3\libm.a(fp_round.o)
-                0x0000000000000d5a                __fp_round
+.text           0x0000000000000dc8       0x22
+ .text          0x0000000000000dc8       0x22 d:/program files/microchip/xc8/v2.50/avr/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avrxmega3\libm.a(fp_round.o)
+                0x0000000000000dc8                __fp_round
 
-.text.tca_init  0x0000000000000d7c       0x20
+.text.tca_init  0x0000000000000dea       0x20
  .text.tca_init
-                0x0000000000000d7c       0x20 build/default/production/tca.o
-                0x0000000000000d7c                tca_init
+                0x0000000000000dea       0x20 build/default/production/tca.o
+                0x0000000000000dea                tca_init
 
-.text.spi_tx    0x0000000000000d9c       0x1c
- .text.spi_tx   0x0000000000000d9c       0x1c build/default/production/spi.o
-                0x0000000000000d9c                spi_tx
+.text.spi_tx    0x0000000000000e0a       0x1c
+ .text.spi_tx   0x0000000000000e0a       0x1c build/default/production/spi.o
+                0x0000000000000e0a                spi_tx
 
 .text.libgcc.div
-                0x0000000000000db8       0x1c
+                0x0000000000000e26       0x1c
  .text.libgcc.div
-                0x0000000000000db8       0x1c d:/program files/microchip/xc8/v2.50/avr/bin/../lib/gcc/avr/5.4.0/avrxmega3\libgcc.a(_udivdi3.o)
-                0x0000000000000db8                __umoddi3
-                0x0000000000000dbc                __udivdi3
-                0x0000000000000dbe                __udivdi3_umoddi3
+                0x0000000000000e26       0x1c d:/program files/microchip/xc8/v2.50/avr/bin/../lib/gcc/avr/5.4.0/avrxmega3\libgcc.a(_udivdi3.o)
+                0x0000000000000e26                __umoddi3
+                0x0000000000000e2a                __udivdi3
+                0x0000000000000e2c                __udivdi3_umoddi3
 
 .text.__vector_6
-                0x0000000000000dd4       0x1a
+                0x0000000000000e42       0x1a
  .text.__vector_6
-                0x0000000000000dd4       0x1a build/default/production/lora.o
-                0x0000000000000dd4                __vector_6
+                0x0000000000000e42       0x1a build/default/production/lora.o
+                0x0000000000000e42                __vector_6
 
-.text.exit      0x0000000000000dee       0x16
- .text.exit     0x0000000000000dee       0x16 d:/program files/microchip/xc8/v2.50/avr/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avrxmega3\libc.a(exit.o)
-                0x0000000000000dee                exit
+.text.exit      0x0000000000000e5c       0x16
+ .text.exit     0x0000000000000e5c       0x16 d:/program files/microchip/xc8/v2.50/avr/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avrxmega3\libc.a(exit.o)
+                0x0000000000000e5c                exit
 
-.rodata         0x0000000000804e04       0x13 load address 0x0000000000000e04
- .rodata        0x0000000000804e04       0x13 build/default/production/uart.o
+.rodata         0x0000000000804e72       0x13 load address 0x0000000000000e72
+ .rodata        0x0000000000804e72       0x13 build/default/production/uart.o
 
 .text.uart_putc
-                0x0000000000000e18       0x10
+                0x0000000000000e86       0x10
  .text.uart_putc
-                0x0000000000000e18       0x10 build/default/production/uart.o
-                0x0000000000000e18                uart_putc
+                0x0000000000000e86       0x10 build/default/production/uart.o
+                0x0000000000000e86                uart_putc
 
-.text           0x0000000000000e28        0xe
- .text          0x0000000000000e28        0xe d:/program files/microchip/xc8/v2.50/avr/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avrxmega3\libm.a(addsf3.o)
-                0x0000000000000e28                __subsf3
-                0x0000000000000e2a                __addsf3
+.text           0x0000000000000e96        0xe
+ .text          0x0000000000000e96        0xe d:/program files/microchip/xc8/v2.50/avr/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avrxmega3\libm.a(addsf3.o)
+                0x0000000000000e96                __subsf3
+                0x0000000000000e98                __addsf3
 
-.text           0x0000000000000e36        0xe
- .text          0x0000000000000e36        0xe d:/program files/microchip/xc8/v2.50/avr/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avrxmega3\libm.a(fp_pscA.o)
-                0x0000000000000e36                __fp_pscA
+.text           0x0000000000000ea4        0xe
+ .text          0x0000000000000ea4        0xe d:/program files/microchip/xc8/v2.50/avr/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avrxmega3\libm.a(fp_pscA.o)
+                0x0000000000000ea4                __fp_pscA
 
-.text           0x0000000000000e44        0xe
- .text          0x0000000000000e44        0xe d:/program files/microchip/xc8/v2.50/avr/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avrxmega3\libm.a(fp_pscB.o)
-                0x0000000000000e44                __fp_pscB
+.text           0x0000000000000eb2        0xe
+ .text          0x0000000000000eb2        0xe d:/program files/microchip/xc8/v2.50/avr/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avrxmega3\libm.a(fp_pscB.o)
+                0x0000000000000eb2                __fp_pscB
 
-.text           0x0000000000000e52        0xe
- .text          0x0000000000000e52        0xe d:/program files/microchip/xc8/v2.50/avr/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avrxmega3\libm.a(fp_zero.o)
-                0x0000000000000e52                __fp_zero
-                0x0000000000000e54                __fp_szero
+.text           0x0000000000000ec0        0xe
+ .text          0x0000000000000ec0        0xe d:/program files/microchip/xc8/v2.50/avr/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avrxmega3\libm.a(fp_zero.o)
+                0x0000000000000ec0                __fp_zero
+                0x0000000000000ec2                __fp_szero
 
 .text.spi_enable
-                0x0000000000000e60        0xc
+                0x0000000000000ece        0xc
  .text.spi_enable
-                0x0000000000000e60        0xc build/default/production/spi.o
-                0x0000000000000e60                spi_enable
+                0x0000000000000ece        0xc build/default/production/spi.o
+                0x0000000000000ece                spi_enable
 
 .text.spi_disable
-                0x0000000000000e6c        0xc
+                0x0000000000000eda        0xc
  .text.spi_disable
-                0x0000000000000e6c        0xc build/default/production/spi.o
-                0x0000000000000e6c                spi_disable
+                0x0000000000000eda        0xc build/default/production/spi.o
+                0x0000000000000eda                spi_disable
 
-.text           0x0000000000000e78        0xc
- .text          0x0000000000000e78        0xc d:/program files/microchip/xc8/v2.50/avr/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avrxmega3\libm.a(fp_inf.o)
-                0x0000000000000e78                __fp_inf
+.text           0x0000000000000ee6        0xc
+ .text          0x0000000000000ee6        0xc d:/program files/microchip/xc8/v2.50/avr/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avrxmega3\libm.a(fp_inf.o)
+                0x0000000000000ee6                __fp_inf
 
 .text.lora_sleep
-                0x0000000000000e84        0xa
+                0x0000000000000ef2        0xa
  .text.lora_sleep
-                0x0000000000000e84        0xa build/default/production/lora.o
-                0x0000000000000e84                lora_sleep
+                0x0000000000000ef2        0xa build/default/production/lora.o
+                0x0000000000000ef2                lora_sleep
 
 .text.lora_standby
-                0x0000000000000e8e        0xa
+                0x0000000000000efc        0xa
  .text.lora_standby
-                0x0000000000000e8e        0xa build/default/production/lora.o
-                0x0000000000000e8e                lora_standby
+                0x0000000000000efc        0xa build/default/production/lora.o
+                0x0000000000000efc                lora_standby
 
 .text.register_lora_rx_event_callback
-                0x0000000000000e98        0xa
+                0x0000000000000f06        0xa
  .text.register_lora_rx_event_callback
-                0x0000000000000e98        0xa build/default/production/lora.o
-                0x0000000000000e98                register_lora_rx_event_callback
+                0x0000000000000f06        0xa build/default/production/lora.o
+                0x0000000000000f06                register_lora_rx_event_callback
 
 .text.lora_rx_continuous
-                0x0000000000000ea2        0xa
+                0x0000000000000f10        0xa
  .text.lora_rx_continuous
-                0x0000000000000ea2        0xa build/default/production/lora.o
-                0x0000000000000ea2                lora_rx_continuous
+                0x0000000000000f10        0xa build/default/production/lora.o
+                0x0000000000000f10                lora_rx_continuous
 
-.text.spi_rx    0x0000000000000eac        0xa
- .text.spi_rx   0x0000000000000eac        0xa build/default/production/spi.o
-                0x0000000000000eac                spi_rx
+.text.spi_rx    0x0000000000000f1a        0xa
+ .text.spi_rx   0x0000000000000f1a        0xa build/default/production/spi.o
+                0x0000000000000f1a                spi_rx
 
-.text           0x0000000000000eb6        0x8
- .text          0x0000000000000eb6        0x8 d:/program files/microchip/xc8/v2.50/avr/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avrxmega3\libm.a(divsf3.o)
-                0x0000000000000eb6                __divsf3
+.text           0x0000000000000f24        0x8
+ .text          0x0000000000000f24        0x8 d:/program files/microchip/xc8/v2.50/avr/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avrxmega3\libm.a(divsf3.o)
+                0x0000000000000f24                __divsf3
 
-.text           0x0000000000000ebe        0x8
- .text          0x0000000000000ebe        0x8 d:/program files/microchip/xc8/v2.50/avr/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avrxmega3\libm.a(mulsf3.o)
-                0x0000000000000ebe                __mulsf3
+.text           0x0000000000000f2c        0x8
+ .text          0x0000000000000f2c        0x8 d:/program files/microchip/xc8/v2.50/avr/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avrxmega3\libm.a(mulsf3.o)
+                0x0000000000000f2c                __mulsf3
 
-.text           0x0000000000000ec6        0x6
- .text          0x0000000000000ec6        0x6 d:/program files/microchip/xc8/v2.50/avr/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avrxmega3\libm.a(fp_nan.o)
-                0x0000000000000ec6                __fp_nan
+.text           0x0000000000000f34        0x6
+ .text          0x0000000000000f34        0x6 d:/program files/microchip/xc8/v2.50/avr/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avrxmega3\libm.a(fp_nan.o)
+                0x0000000000000f34                __fp_nan
 
-.text           0x0000000000000ecc        0x4
- .text          0x0000000000000ecc        0x4 D:/Program Files/Microchip/MPLABX/v6.20/packs/Microchip/ATmega_DFP/3.1.264/xc8/avr/lib/avrxmega3/crtatmega3208.o
-                0x0000000000000ecc                __vector_22
-                0x0000000000000ecc                __vector_28
-                0x0000000000000ecc                __vector_1
-                0x0000000000000ecc                __vector_32
-                0x0000000000000ecc                __vector_34
-                0x0000000000000ecc                __vector_24
-                0x0000000000000ecc                __vector_12
-                0x0000000000000ecc                __bad_interrupt
-                0x0000000000000ecc                __vector_31
-                0x0000000000000ecc                __vector_35
-                0x0000000000000ecc                __vector_3
-                0x0000000000000ecc                __vector_23
-                0x0000000000000ecc                __vector_30
-                0x0000000000000ecc                __vector_25
-                0x0000000000000ecc                __vector_11
-                0x0000000000000ecc                __vector_13
-                0x0000000000000ecc                __vector_17
-                0x0000000000000ecc                __vector_19
-                0x0000000000000ecc                __vector_27
-                0x0000000000000ecc                __vector_5
-                0x0000000000000ecc                __vector_33
-                0x0000000000000ecc                __vector_4
-                0x0000000000000ecc                __vector_9
-                0x0000000000000ecc                __vector_2
-                0x0000000000000ecc                __vector_21
-                0x0000000000000ecc                __vector_15
-                0x0000000000000ecc                __vector_29
-                0x0000000000000ecc                __vector_8
-                0x0000000000000ecc                __vector_26
-                0x0000000000000ecc                __vector_14
-                0x0000000000000ecc                __vector_10
-                0x0000000000000ecc                __vector_16
-                0x0000000000000ecc                __vector_18
-                0x0000000000000ecc                __vector_20
+.text           0x0000000000000f3a        0x4
+ .text          0x0000000000000f3a        0x4 D:/Program Files/Microchip/MPLABX/v6.20/packs/Microchip/ATmega_DFP/3.1.264/xc8/avr/lib/avrxmega3/crtatmega3208.o
+                0x0000000000000f3a                __vector_22
+                0x0000000000000f3a                __vector_28
+                0x0000000000000f3a                __vector_1
+                0x0000000000000f3a                __vector_32
+                0x0000000000000f3a                __vector_34
+                0x0000000000000f3a                __vector_24
+                0x0000000000000f3a                __vector_12
+                0x0000000000000f3a                __bad_interrupt
+                0x0000000000000f3a                __vector_31
+                0x0000000000000f3a                __vector_35
+                0x0000000000000f3a                __vector_3
+                0x0000000000000f3a                __vector_23
+                0x0000000000000f3a                __vector_30
+                0x0000000000000f3a                __vector_25
+                0x0000000000000f3a                __vector_11
+                0x0000000000000f3a                __vector_13
+                0x0000000000000f3a                __vector_17
+                0x0000000000000f3a                __vector_19
+                0x0000000000000f3a                __vector_27
+                0x0000000000000f3a                __vector_5
+                0x0000000000000f3a                __vector_33
+                0x0000000000000f3a                __vector_4
+                0x0000000000000f3a                __vector_9
+                0x0000000000000f3a                __vector_2
+                0x0000000000000f3a                __vector_21
+                0x0000000000000f3a                __vector_15
+                0x0000000000000f3a                __vector_29
+                0x0000000000000f3a                __vector_8
+                0x0000000000000f3a                __vector_26
+                0x0000000000000f3a                __vector_14
+                0x0000000000000f3a                __vector_10
+                0x0000000000000f3a                __vector_16
+                0x0000000000000f3a                __vector_18
+                0x0000000000000f3a                __vector_20
 
-.text._Exit     0x0000000000000ed0        0x4
- .text._Exit    0x0000000000000ed0        0x4 d:/program files/microchip/xc8/v2.50/avr/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avrxmega3\libc.a(_Exit.o)
-                0x0000000000000ed0                _Exit
+.text._Exit     0x0000000000000f3e        0x4
+ .text._Exit    0x0000000000000f3e        0x4 d:/program files/microchip/xc8/v2.50/avr/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avrxmega3\libc.a(_Exit.o)
+                0x0000000000000f3e                _Exit
 
 .text.__dummy_fini
-                0x0000000000000ed4        0x2
+                0x0000000000000f42        0x2
  .text.__dummy_fini
-                0x0000000000000ed4        0x2 d:/program files/microchip/xc8/v2.50/avr/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avrxmega3\libc.a(exit.o)
-                0x0000000000000ed4                _fini
+                0x0000000000000f42        0x2 d:/program files/microchip/xc8/v2.50/avr/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avrxmega3\libc.a(exit.o)
+                0x0000000000000f42                _fini
 
 .text.__dummy_funcs_on_exit
-                0x0000000000000ed6        0x2
+                0x0000000000000f44        0x2
  .text.__dummy_funcs_on_exit
-                0x0000000000000ed6        0x2 d:/program files/microchip/xc8/v2.50/avr/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avrxmega3\libc.a(exit.o)
-                0x0000000000000ed6                __funcs_on_exit
+                0x0000000000000f44        0x2 d:/program files/microchip/xc8/v2.50/avr/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avrxmega3\libc.a(exit.o)
+                0x0000000000000f44                __funcs_on_exit
 
 .text.__dummy_simulator_exit
-                0x0000000000000ed8        0x2
+                0x0000000000000f46        0x2
  .text.__dummy_simulator_exit
-                0x0000000000000ed8        0x2 d:/program files/microchip/xc8/v2.50/avr/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avrxmega3\libc.a(exit.o)
-                0x0000000000000ed8                __simulator_exit
+                0x0000000000000f46        0x2 d:/program files/microchip/xc8/v2.50/avr/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avrxmega3\libc.a(exit.o)
+                0x0000000000000f46                __simulator_exit
