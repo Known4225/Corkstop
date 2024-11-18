@@ -22,23 +22,26 @@ https://learn.adafruit.com/introducting-itsy-bitsy-32u4/pinouts
 #include <SPI.h>
 #include <RH_RF95.h>
 
-/* Chip Select pin */
+/* Chip Select pin - A0, PF7 */
 #define RFM95_CS_PIN    18
-/* Reset pin */
+/* Reset pin - PF6 */
 #define RFM95_RST_PIN   19
-/* G0 interrupt pin */
+/* G0 interrupt pin - PD0 */
 #define RFM95_INT_PIN   3
-/* lora LED indicator */
+/* lora LED indicator - PB7 */
 #define LORA_LED_PIN    11
 
-/* ADC - A2, ADC5 */
+/* ADC - A2, PF5, ADC5 */
 #define ADC_PIN         20
 /* threshold ADC output to consider power on */
 #define ADC_THRESH      100
 
-/* continuity green and red channels */
+/* continuity green and red channels - PD6, PC7 */
 #define GREEN_LED_PIN   12
 #define RED_LED_PIN     13
+
+/* Relay pin - PD3 */
+#define RELAY_PIN       1
 
 /* Change to 433.0 or other frequency, must match RX's freq! */
 #define RF95_FREQ 433.0
@@ -52,8 +55,10 @@ void setup() {
     pinMode(RFM95_RST_PIN, OUTPUT);
     pinMode(GREEN_LED_PIN, OUTPUT);
     pinMode(RED_LED_PIN, OUTPUT);
+    pinMode(RELAY_PIN, OUTPUT);
     // no need to setup ADC_PIN, that is handled by analogRead()
 
+    digitalWrite(RELAY_PIN, LOW); // THE MOST IMPORTANT PIN
     digitalWrite(RFM95_RST_PIN, HIGH);
     digitalWrite(GREEN_LED_PIN, HIGH); // start with yellow
     digitalWrite(RED_LED_PIN, HIGH);
@@ -149,6 +154,9 @@ void loop() {
                 /* IGNITE */
                 if (continuity) {
                     /* done */
+                    digitalWrite(RELAY_PIN, HIGH);
+                    delay(5); // relay pin triggers for 5ms
+                    digitalWrite(RELAY_PIN, LOW);
                     uint8_t message[] = {'d', 'o', 'n', 'e', '\0'};
                     lora.send(message, sizeof(message));
                     lora.waitPacketSent();
