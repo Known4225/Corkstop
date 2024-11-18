@@ -43,10 +43,11 @@ https://learn.adafruit.com/introducting-itsy-bitsy-32u4/pinouts
 RH_RF95 lora(RFM95_CS_PIN, RFM95_INT_PIN);
 
 void setup() {
-    /* setup LED */
+    /* setup pins */
     pinMode(LORA_LED_PIN, OUTPUT);
     pinMode(RFM95_RST_PIN, OUTPUT);
     digitalWrite(RFM95_RST_PIN, HIGH);
+    // no need to setup ADC_PIN, that is handled by analogRead()
 
     Serial.begin(9600); // baud rate 9600
     delay(100);
