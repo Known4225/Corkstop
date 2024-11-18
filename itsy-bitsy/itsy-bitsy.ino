@@ -89,7 +89,8 @@ uint8_t continuity = 0;
 uint32_t lastADC = 0;
 
 void loop() {
-    if (millis() - lastADC > 500) {
+    /* collect continuity info four times a second */
+    if (millis() - lastADC > 250) {
         adcValue = analogRead(ADC_PIN);
         if (adcValue > ADC_THRESH) {
             continuity = 1;
@@ -129,6 +130,21 @@ void loop() {
                     lora.send(message, sizeof(message));
                     lora.waitPacketSent();
                     Serial.println("Sent reply \"stal\"\r\n");
+                }
+            } else if (len == 7 && strcmp(buf, "IGNITE")) {
+                /* IGNITE */
+                if (continuity) {
+                    /* done */
+                    uint8_t message[] = {'d', 'o', 'n', 'e', '\0'};
+                    lora.send(message, sizeof(message));
+                    lora.waitPacketSent();
+                    Serial.println("Sent reply \"done\"\r\n");
+                } else {
+                    /* can't */
+                    uint8_t message[] = {'c', 'a', 'n', 't', '\0'};
+                    lora.send(message, sizeof(message));
+                    lora.waitPacketSent();
+                    Serial.println("Sent reply \"cant\"\r\n");
                 }
             }
         } else {
