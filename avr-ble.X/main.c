@@ -58,11 +58,11 @@ void parse_lora(uint8_t *buf, uint8_t len, uint8_t status) {
 	uart_tx("Received: \"");
     uart_tx((const char *) buf);
     uart_tx("\"\r\n");
-    if (strcmp(buf, "stop" == 0)) {
+    if (strcmp((const char *) buf, "stop") == 0) {
         /* received continuity OK */
         receivedGood = 1;
     }
-    if (strcmp(buf, "stal") == 0) {
+    if (strcmp((const char *) buf, "stal") == 0) {
         /* received continuity ERROR (no continuity) */
         receivedGood = 1;
     }
