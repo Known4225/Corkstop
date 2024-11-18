@@ -36,6 +36,10 @@ https://learn.adafruit.com/introducting-itsy-bitsy-32u4/pinouts
 /* threshold ADC output to consider power on */
 #define ADC_THRESH      100
 
+/* continuity green and red channels */
+#define GREEN_LED_PIN   12
+#define RED_LED_PIN     13
+
 /* Change to 433.0 or other frequency, must match RX's freq! */
 #define RF95_FREQ 433.0
 
@@ -46,8 +50,13 @@ void setup() {
     /* setup pins */
     pinMode(LORA_LED_PIN, OUTPUT);
     pinMode(RFM95_RST_PIN, OUTPUT);
-    digitalWrite(RFM95_RST_PIN, HIGH);
+    pinMode(GREEN_LED_PIN, OUTPUT);
+    pinMode(RED_LED_PIN, OUTPUT);
     // no need to setup ADC_PIN, that is handled by analogRead()
+
+    digitalWrite(RFM95_RST_PIN, HIGH);
+    digitalWrite(GREEN_LED_PIN, HIGH); // start with yellow
+    digitalWrite(RED_LED_PIN, HIGH);
 
     Serial.begin(9600); // baud rate 9600
     delay(100);
@@ -94,8 +103,12 @@ void loop() {
     if (millis() - lastADC > 250) {
         adcValue = analogRead(ADC_PIN);
         if (adcValue > ADC_THRESH) {
+            digitalWrite(GREEN_LED_PIN, HIGH);
+            digitalWrite(RED_LED_PIN, LOW);
             continuity = 1;
         } else {
+            digitalWrite(GREEN_LED_PIN, LOW);
+            digitalWrite(RED_LED_PIN, HIGH);
             continuity = 0;
         }
         lastADC = millis();

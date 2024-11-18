@@ -739,14 +739,14 @@ END GROUP
  .debug_abbrev  0x00000000000029bb      0x18a build/default/debug/uart.o
  .debug_abbrev  0x0000000000002b45       0xf9 build/default/debug/tca.o
 
-.debug_line     0x0000000000000000      0xdcd
+.debug_line     0x0000000000000000      0xdce
  *(.debug_line .debug_line.* .debug_line_end)
  .debug_line    0x0000000000000000      0x16f C:/Program Files/Microchip/MPLABX/v6.20/packs/Microchip/ATmega_DFP/3.1.264/xc8/avr/lib/avrxmega3/crtatmega3208.o
  .debug_line    0x000000000000016f      0x58d build/default/debug/lora.o
- .debug_line    0x00000000000006fc      0x28a build/default/debug/main.o
- .debug_line    0x0000000000000986      0x1be build/default/debug/spi.o
- .debug_line    0x0000000000000b44      0x175 build/default/debug/uart.o
- .debug_line    0x0000000000000cb9      0x114 build/default/debug/tca.o
+ .debug_line    0x00000000000006fc      0x28b build/default/debug/main.o
+ .debug_line    0x0000000000000987      0x1be build/default/debug/spi.o
+ .debug_line    0x0000000000000b45      0x175 build/default/debug/uart.o
+ .debug_line    0x0000000000000cba      0x114 build/default/debug/tca.o
 
 .debug_frame    0x0000000000000000      0x408
  *(.debug_frame)
