@@ -31,7 +31,7 @@ https://learn.adafruit.com/introducting-itsy-bitsy-32u4/pinouts
 /* lora LED indicator */
 #define LORA_LED_PIN    11
 
-/* ADC */
+/* ADC - A2, ADC5 */
 #define ADC_PIN         20
 /* threshold ADC output to consider power on */
 #define ADC_THRESH      100
