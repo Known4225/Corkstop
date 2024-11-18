@@ -21,18 +21,22 @@ https://ww1.microchip.com/downloads/aemDocuments/documents/MCU08/ProductDocument
 #include "lora.h"
 
 /* ARM_BUTTON_PIN - PC1 */
-#define ARM_BUTTON_PIN      PIN1_bm
+#define ARM_BUTTON_PIN        PIN1_bm
 /* IGNITE_BUTTON_PIN - PD6 */
-#define IGNITE_BUTTON_PIN   PIN6_bm
+#define IGNITE_BUTTON_PIN     PIN6_bm
 /* DC_BUZZER_PIN - PD1 */
-#define DC_BUZZER_PIN       PIN1_bm
+#define DC_BUZZER_PIN         PIN1_bm
 
 /* LORA_LED_PIN - PC0 */
-#define LORA_LED_PIN        PIN0_bm
+#define LORA_LED_PIN          PIN0_bm
 /* continuity LED green channel pin - PD5 */
-#define GREEN_LED_PIN       PIN5_bm
+#define GREEN_CONT_LED_PIN    PIN5_bm
 /* continuity LED red channel pin - PD7 */
-#define RED_LED_PIN         PIN7_bm
+#define RED_CONT_LED_PIN           PIN7_bm
+/* ignite status LED green channel pin - PA2 */
+#define GREEN_IGN_LED_PIN     PIN2_bm
+/* ignite status LED red channel pin - PA3 */
+#define RED_IGN_LED_PIN       PIN3_bm
 
 uint8_t ledToggle = 0;
 uint32_t millis = 0;
@@ -47,13 +51,17 @@ void sendIgnite(); // send ignite key to receiver
 int main() {
     /* pin init */
     PORTC.DIR |= LORA_LED_PIN;
-    PORTD.DIR |= GREEN_LED_PIN;
-    PORTD.DIR |= RED_LED_PIN;
+    PORTD.DIR |= GREEN_CONT_LED_PIN;
+    PORTD.DIR |= RED_CONT_LED_PIN;
+    PORTA.DIR |= GREEN_IGN_LED_PIN;
+    PORTA.DIR |= RED_IGN_LED_PIN;
     PORTD.DIR |= DC_BUZZER_PIN;
     PORTC.DIR &= ~ARM_BUTTON_PIN;
     
-    PORTD.OUT |= GREEN_LED_PIN; // start yellow
-    PORTD.OUT |= RED_LED_PIN;
+    PORTD.OUT |= GREEN_CONT_LED_PIN; // start yellow
+    PORTD.OUT |= RED_CONT_LED_PIN;
+    PORTA.OUT &= ~GREEN_IGN_LED_PIN; // start off
+    PORTA.OUT &= ~RED_IGN_LED_PIN;
     uart_init(9600);
     if (tca_init()) {
         uart_tx("RTC could not initialise\r\n");
@@ -73,15 +81,27 @@ int main() {
             PORTC.OUT |= LORA_LED_PIN;
         }
         if (PORTC.OUT & ARM_BUTTON_PIN) {
+            if (mustRelease == 0) {
+                /* turn off IGNITE LED */
+                PORTA.OUT &= ~GREEN_IGN_LED_PIN;
+                PORTA.OUT &= ~RED_IGN_LED_PIN;
+            }
             if (hasConnection) {
-                PORTD.OUT |= DC_BUZZER_PIN;
+                if (mustRelease == 0) {
+                    PORTD.OUT |= DC_BUZZER_PIN;
+                }
                 if (PORTD.OUT & IGNITE_BUTTON_PIN && mustRelease == 0) {
+                    /* turn IGNITE LED to YELLOW */
+                    PORTA.OUT |= GREEN_IGN_LED_PIN;
+                    PORTA.OUT |= RED_IGN_LED_PIN;
                     sendIgnite();
                     mustRelease = 1;
                 }
             }
         } else {
-            mustRelease = 0;
+            if ((PORTD.OUT & IGNITE_BUTTON_PIN) == 0) {
+                mustRelease = 0;
+            }
         }
         _delay_ms(1);
         millis++;
@@ -99,22 +119,34 @@ void parse_lora(uint8_t *buf, uint8_t len, uint8_t status) {
     uart_tx("\"\r\n");
     if (strcmp((const char *) buf, "stop") == 0) {
         /* received continuity OK */
-        PORTD.OUT |= GREEN_LED_PIN;
-        PORTD.OUT &= ~RED_LED_PIN;
+        PORTD.OUT |= GREEN_CONT_LED_PIN;
+        PORTD.OUT &= ~RED_CONT_LED_PIN;
         receivedGood = 1;
         hasConnection = 1;
     }
     if (strcmp((const char *) buf, "stal") == 0) {
         /* received continuity ERROR (no continuity) */
-        PORTD.OUT &= ~GREEN_LED_PIN;
-        PORTD.OUT |= RED_LED_PIN;
+        PORTD.OUT &= ~GREEN_CONT_LED_PIN;
+        PORTD.OUT |= RED_CONT_LED_PIN;
         receivedGood = 1;
         hasConnection = 1;
+    }
+    if (strcmp((const char *) buf, "done") == 0) {
+        /* received ignite OK */
+        PORTA.OUT |= GREEN_IGN_LED_PIN;
+        PORTA.OUT &= ~RED_IGN_LED_PIN;
+    }
+    if (strcmp((const char *) buf, "cant") == 0) {
+        /* received ignite ERROR */
+        PORTA.OUT &= ~GREEN_IGN_LED_PIN;
+        PORTA.OUT |= RED_IGN_LED_PIN;
     }
 }
 
 void sendIgnite() {
-    
+    uint8_t message[] = {0xFF, 0xFF, 0xFF, 0xFF, 'I', 'G', 'N', 'I', 'T', 'E', '\0'};
+    lora_send(message, sizeof(message));
+    uart_tx("sent \"IGNITE\"\r\n");
 }
 
 /* TCA ISR - every second */
@@ -123,9 +155,9 @@ ISR(TCA0_OVF_vect) {
     lora_send(message, sizeof(message));
     uart_tx("sent \"cork\"\r\n");
     if (receivedGood == 0) {
-        /* didn't receive it last time - toggle LED yellow */
-        PORTD.OUT |= GREEN_LED_PIN;
-        PORTD.OUT |= RED_LED_PIN;
+        /* didn't receive it last time - toggle continuity LED yellow */
+        PORTD.OUT |= GREEN_CONT_LED_PIN;
+        PORTD.OUT |= RED_CONT_LED_PIN;
         hasConnection = 0;
     }
     receivedGood = 0;
