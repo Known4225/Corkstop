@@ -100,28 +100,10 @@
 #define BANDWIDTH				BANDWIDTH_125_KHZ
 #define FREQUENCY				433E6
 
+/* Reset pin - PA2 */
 #define RST_PIN     PIN2_bm
+/* Interrupt pin - PA3 */
 #define INT_PIN     PIN3_bm
-
-#define SS		(1<<PB2)
-#define DDR_SS		DDRB
-#define PORT_SS		PORTB
-
-#define RST		(1<<PB1)
-#define DDR_RST		DDRB
-#define PORT_RST	PORTB
-
-#define SCK		(1<<PB5)
-#define DDR_SCK		DDRB
-#define PORT_SCK	PORTB
-
-#define MOSI		(1<<PB3)
-#define DDR_MOSI	DDRB
-#define PORT_MOSI	PORTB
-
-#define MISO		(1<<PB4)
-#define DDR_MISO	DDRB
-#define PORT_MISO	PORTB
 //==============================================
 //==============================================
 

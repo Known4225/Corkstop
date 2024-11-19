@@ -150,7 +150,7 @@ void loop() {
                     lora.waitPacketSent();
                     Serial.println("Sent reply \"stal\"\r\n");
                 }
-            } else if (len == 7 && strcmp(buf, "IGNITE")) {
+            } else if (len == 7 && strcmp(buf, "IGNITE") == 0) {
                 /* IGNITE */
                 if (continuity) {
                     /* done */
