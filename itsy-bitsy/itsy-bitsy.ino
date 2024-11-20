@@ -23,25 +23,25 @@ https://learn.adafruit.com/introducting-itsy-bitsy-32u4/pinouts
 #include <RH_RF95.h>
 
 /* Chip Select pin - A0, PF7 */
-#define RFM95_CS_PIN    18
-/* Reset pin - PF6 */
-#define RFM95_RST_PIN   19
+#define RFM95_CS_PIN         18
+/* Reset pin - A1, PF6 */
+#define RFM95_RST_PIN        19
 /* G0 interrupt pin - PD0 */
-#define RFM95_INT_PIN   3
+#define RFM95_INT_PIN        3
 /* lora LED indicator - PB7 */
-#define LORA_LED_PIN    11
+#define LORA_LED_PIN         11
 
 /* ADC - A2, PF5, ADC5 */
-#define ADC_PIN         20
+#define ADC_PIN              20
 /* threshold ADC output to consider power on */
-#define ADC_THRESH      100
+#define ADC_THRESH           100
 
 /* continuity green and red channels - PD6, PC7 */
-#define GREEN_LED_PIN   12
-#define RED_LED_PIN     13
+#define GREEN_CONT_LED_PIN   12
+#define RED_CONT_LED_PIN     13
 
 /* Relay pin - PD3 */
-#define RELAY_PIN       1
+#define RELAY_PIN            1
 
 /* Change to 433.0 or other frequency, must match RX's freq! */
 #define RF95_FREQ 433.0
@@ -53,15 +53,15 @@ void setup() {
     /* setup pins */
     pinMode(LORA_LED_PIN, OUTPUT);
     pinMode(RFM95_RST_PIN, OUTPUT);
-    pinMode(GREEN_LED_PIN, OUTPUT);
-    pinMode(RED_LED_PIN, OUTPUT);
+    pinMode(GREEN_CONT_LED_PIN, OUTPUT);
+    pinMode(RED_CONT_LED_PIN, OUTPUT);
     pinMode(RELAY_PIN, OUTPUT);
     // no need to setup ADC_PIN, that is handled by analogRead()
 
     digitalWrite(RELAY_PIN, LOW); // THE MOST IMPORTANT PIN
     digitalWrite(RFM95_RST_PIN, HIGH);
-    digitalWrite(GREEN_LED_PIN, HIGH); // start with yellow
-    digitalWrite(RED_LED_PIN, HIGH);
+    digitalWrite(GREEN_CONT_LED_PIN, HIGH); // start with yellow
+    digitalWrite(RED_CONT_LED_PIN, HIGH);
 
     Serial.begin(9600); // baud rate 9600
     delay(100);
@@ -102,18 +102,25 @@ uint32_t ledLastOn = 0;
 uint16_t adcValue = 0;
 uint8_t continuity = 0;
 uint32_t lastADC = 0;
+uint8_t printADC = 0;
 
 void loop() {
     /* collect continuity info four times a second */
     if (millis() - lastADC > 250) {
         adcValue = analogRead(ADC_PIN);
+        printADC++;
+        if (printADC == 4) {
+            Serial.print("ADC: ");
+            Serial.println(adcValue);
+            printADC = 0;
+        }
         if (adcValue > ADC_THRESH) {
-            digitalWrite(GREEN_LED_PIN, HIGH);
-            digitalWrite(RED_LED_PIN, LOW);
+            digitalWrite(GREEN_CONT_LED_PIN, HIGH);
+            digitalWrite(RED_CONT_LED_PIN, LOW);
             continuity = 1;
         } else {
-            digitalWrite(GREEN_LED_PIN, LOW);
-            digitalWrite(RED_LED_PIN, HIGH);
+            digitalWrite(GREEN_CONT_LED_PIN, LOW);
+            digitalWrite(RED_CONT_LED_PIN, HIGH);
             continuity = 0;
         }
         lastADC = millis();
