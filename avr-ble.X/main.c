@@ -127,10 +127,14 @@ int main() {
                     PORTF.OUT |= RED_IGN_LED_PIN;
                     sendIgnite();
                     mustRelease = 1;
+                    PORTD.OUT &= ~DC_BUZZER_PIN;
+                } else if (igniteButtonBuffer && mustRelease == 0) {
+                    mustRelease = 1;
                 }
             }
         } else {
             if (firstTick) {
+                PORTD.OUT &= ~DC_BUZZER_PIN;
                 if (mustRelease == 0) {
                     /* turn off IGNITE LED */
                     PORTA.OUT &= ~GREEN_IGN_LED_PIN;
