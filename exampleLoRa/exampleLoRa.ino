@@ -8,6 +8,11 @@
 // workspace link: https://adafruit.github.io/arduino-board-index/package_adafruit_index.json
 // also uses RadioHead library, and the code is modified from: https://github.com/adafruit/RadioHead/blob/master/examples/feather/Feather9x_RX/Feather9x_RX.ino
 
+/*
+https://cdn-learn.adafruit.com/downloads/pdf/adafruit-rfm69hcw-and-rfm96-rfm95-rfm98-lora-packet-padio-breakouts.pdf
+https://cdn-shop.adafruit.com/product-files/3076/sx1231.pdf
+*/
+
 #include <SPI.h>
 #include <RH_RF95.h>
 
