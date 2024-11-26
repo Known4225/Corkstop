@@ -27,7 +27,7 @@ https://learn.adafruit.com/introducting-itsy-bitsy-32u4/pinouts
 /* Reset pin - A1, PF6 */
 #define RFM95_RST_PIN        19
 /* G0 interrupt pin - PD0 */
-#define RFM95_INT_PIN        3
+#define RFM95_INT_PIN        0
 /* lora LED indicator - PB7 */
 #define LORA_LED_PIN         11
 
