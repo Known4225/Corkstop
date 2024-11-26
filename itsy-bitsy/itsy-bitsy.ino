@@ -162,7 +162,7 @@ void loop() {
                 if (continuity) {
                     /* done */
                     digitalWrite(RELAY_PIN, HIGH);
-                    delay(5); // relay pin triggers for 5ms
+                    delay(250); // relay pin triggers for 250ms
                     digitalWrite(RELAY_PIN, LOW);
                     uint8_t message[] = {'d', 'o', 'n', 'e', '\0'};
                     lora.send(message, sizeof(message));
