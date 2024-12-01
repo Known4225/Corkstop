@@ -92,7 +92,7 @@ void setup() {
     // The default transmitter power is 13dBm, using PA_BOOST.
     // If you are using RFM95/96/97/98 modules which uses the PA_BOOST transmitter pin, then 
     // you can set transmitter powers from 5 to 23 dBm:
-    lora.setTxPower(20, false);
+    lora.setTxPower(23, false);
 
     // 433.0MHz, 20dBm, Bw = 125 kHz, Cr = 4/5, Sf = 128chips/symbol, CRC off
 }

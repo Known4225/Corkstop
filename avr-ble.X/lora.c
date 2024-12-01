@@ -67,7 +67,7 @@ ECODE lora_init() {
 	lora_set_spreading_factor(SPREADING_FACTOR);
 	lora_set_coding_rate(CODING_RATE);
 
-	lora_tx_power(20);
+	lora_tx_power(23);
 
 	lora_explicit_header();
 
