@@ -1,4 +1,4 @@
-![](Corkstop.svg)
+![](Corkstop.png)
 ### Remote Ignition System
 Corkstop is a single channel ignition system that operates alongside an e-match or igniter to remotely launch a rocket or activate a stationary rocket motor.
 
