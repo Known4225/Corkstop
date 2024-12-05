@@ -18,3 +18,4 @@ To ignite the charge, hold down the blue ARM button and verify that the control 
 
 *note that the battery is actually 14v, not 12v. And the resistor value has been updated to 700Ω
 *note that the XT60 connector is used, not the XT90
+
