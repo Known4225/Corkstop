@@ -1,0 +1,42 @@
+Radios:
+LoRa: https://www.adafruit.com/product/3073
+we need two plus antennas.
+https://www.amazon.com/Antenna-Frequency-Connector-SMA-Male-Receivers/dp/B0C1FCZM94
+
+
+Control Side: 
+3.3v - avr-ble, display, arm and ignite button, buzzer, lora radio, LED indicator (radio connection), LED indicator (igniter continuity)
+power: https://www.amazon.com/TalentCell-Rechargeable-12000mAh-Multi-led-indicator/dp/B00ME3ZH7C
+buttons: https://www.amazon.com/EG-STARTS-Illuminated-Buttons-Raspberry/dp/B01N11BDX9
+DC buzzer: https://www.amazon.com/Electronic-Continuous-Computers-Automotive-Equipment/dp/B08KW6HB1P/ref=asc_df_B08KW6HB1P
+
+Receiver Side:
+5v - [ITSY BITSY 32U4 5V 16MHZ (5v)], LED indicator (igniter continuity, multi-colour), buzzer (you should never hear this)
+power: UFC battery
+microcontroller: https://www.adafruit.com/product/3677
+Relay: https://www.amazon.com/Tolako-Arduino-Indicator-Channel-Official/dp/B00VRUAHLE/ref=asc_df_B00VRUAHLE
+Voltage divider: https://www.amazon.com/Converter-Voltage-Waterproof-Regulator-Step-Down/dp/B07Y2V1F8V
+Plug: https://www.amazon.com/2Packs-Silicone-Connector-RC-Battery/dp/B077QX4NKD?th=1
+      https://www.amazon.com/Padarsey-Connector-Female-Housing-Silicon/dp/B07BF8154S
+700 Ohm resistor: https://www.digikey.com/en/products/detail/vishay-dale/CW02B700R0JE70/1169042
+
+Aiming for 20mA, that means (with 12v), we need a resistance of 600 Ohms.
+
+
+extras:
+header pins: https://www.amazon.com/MCIGICM-Header-2-45mm-Arduino-Connector/dp/B07PKKY8BX
+wires: https://www.amazon.com/Elegoo-EL-CP-004-Multicolored-Breadboard-arduino/dp/B01EV70C78
+
+
+7
+34
+12
+6
+5.50
+9
+9
+7
+1.55
+
+5
+7
