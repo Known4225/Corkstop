@@ -16,6 +16,7 @@ To ignite the charge, hold down the blue ARM button and verify that the control 
 ## Design Sketch:
 - test list
 - item 2
+
 ![](Design-sketch.jpg)
 
 *note that the battery is actually 14v, not 12v. And the resistor value has been updated to 700Ω
