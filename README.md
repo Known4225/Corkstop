@@ -14,10 +14,8 @@ Continuity information is also available through the continuity LED on the contr
 To ignite the charge, hold down the blue ARM button and verify that the control box is emitting an audible tone. Then, with the ARM button held down, press the red IGNITE button. This will light the e-match or igniter on the receiver side.
 
 ## Design Sketch:
-- test list
-- item 2
 
-  ![](Design-sketch.jpg)
+![](Design-sketch.jpg)
 
 *note that the battery is actually 14v, not 12v. And the resistor value has been updated to 700Ω
 *note that the XT60 connector is used, not the XT90
