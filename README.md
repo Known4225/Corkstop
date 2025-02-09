@@ -21,3 +21,7 @@ To ignite the charge, hold down the blue ARM button and verify that the control 
 *note that the XT60 connector is used, not the XT90
 
 ![](Corkstop_Control_Box.png)
+
+## Product:
+
+![20241201_161811](https://github.com/user-attachments/assets/98c92b23-bf88-4fab-b471-bb7c0075b7ab)
